@@ -7,7 +7,7 @@ const timerStore = useTimerStore()
 const { formattedTime, getDashOffset,} = storeToRefs(timerStore)
 const { setInitialTime } = timerStore
 
-const initTime = 4
+const initTime = 1500
 
 onMounted(() => {
   setInitialTime(initTime)
