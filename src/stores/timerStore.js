@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 
 export const useTimerStore = defineStore('useTimerStore', () => {
-  const initTime = ref(0)
+  const time = ref(0)
   const timeLeft = ref(0)
   const timerRunning = ref(false)
   let timerInterval = 0
@@ -10,7 +10,8 @@ export const useTimerStore = defineStore('useTimerStore', () => {
   const totalDashOffset = ref(825)
 
   const setInitialTime = (initialTime) => {
-    initTime.value = initialTime
+    console.log(initialTime)
+    time.value = initialTime
     timeLeft.value = initialTime
   }
 
@@ -29,38 +30,39 @@ export const useTimerStore = defineStore('useTimerStore', () => {
           timeLeft.value -= 1
         } else {
           stopTimer()
+          console.log(time.value)
         }
       }, 1000)
     }
   }
 
-//   const stopTimer = () => {
-//     clearInterval(timerInterval)
-//     timerRunning.value = false
+  //   const stopTimer = () => {
+  //     clearInterval(timerInterval)
+  //     timerRunning.value = false
 
-//     if (timeLeft.value === 0) {
-//       if (initTime.value === 25 * 60) {
-//         setInitialTime(5 * 60)
-//       } else {
-//         setInitialTime(25 * 60)
-//       }
-//     }
-//   }
+  //     if (timeLeft.value === 0) {
+  //       if (initTime.value === 25 * 60) {
+  //         setInitialTime(5 * 60)
+  //       } else {
+  //         setInitialTime(25 * 60)
+  //       }
+  //     }
+  //   }
   const stopTimer = () => {
     clearInterval(timerInterval)
     timerRunning.value = false
 
     if (timeLeft.value === 0) {
-      if (initTime.value === 25 * 60) {
+      if (time.value === 25*60) {
         setInitialTime(5 * 60)
       } else {
-        setInitialTime(25 * 60)
+        setInitialTime(25*60)
       }
     }
   }
 
   const getDashOffset = computed(() => {
-    const totalTime = initTime.value
+    const totalTime = time.value
     const remainingTime = timeLeft.value
     return totalDashOffset.value * (1 - remainingTime / totalTime)
   })
@@ -71,6 +73,7 @@ export const useTimerStore = defineStore('useTimerStore', () => {
     stopTimer,
     timerRunning,
     setInitialTime,
-    getDashOffset
+    getDashOffset,
+    time
   }
 })
