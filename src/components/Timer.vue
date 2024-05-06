@@ -4,16 +4,12 @@ import { useTimerStore } from '@/stores/timerStore'
 import { computed, onMounted, ref, watch } from 'vue'
 
 const timerStore = useTimerStore()
-const { formattedTime, getDashOffset,} = storeToRefs(timerStore)
+const { formattedTime, getDashOffset, time } = storeToRefs(timerStore)
 const { setInitialTime } = timerStore
 
-const initTime = 4
-
 onMounted(() => {
-  setInitialTime(initTime)
+  setInitialTime(1500)
 })
-
-
 </script>
 
 <template>
@@ -25,11 +21,11 @@ onMounted(() => {
         :stroke-dasharray="825"
         :stroke-dashoffset="getDashOffset"
         cx="141"
-        style="transition: stroke-dashoffset .5s ease-in-out;"
+        style="transition: stroke-dashoffset 0.5s ease-in-out"
         cy="141"
         r="132"
         stroke-width="18px"
-        stroke="#8734ad"
+        :stroke="`${time === 1500 ? '#8734ad' : '#E4B615'}`"
         stroke-linecap="round"
       />
     </svg>
